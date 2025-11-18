@@ -40,6 +40,6 @@ keywords:
   - docker
   - tool-spec
   - V-For-WaTer
-license: CC-BY-4.0
+license: CC-BY-4.0       # validator says: LICENSE file looks like MIT. Option: Change CC-BY-4.0 to MIT
 version: '0.1'
 date-released: '2024-11-14'

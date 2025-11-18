@@ -2,7 +2,7 @@ tools:
   foobar:
     title: Foo Bar
     description: A dummy tool to exemplify the YAML file
-    version: 0.1
+    version: 0.1    # remove this line - version seems to be not required anymore inside YAML -  the tool-spec-converter expects to add the version via Git tags like v0.1.0
     parameters:
       foo_int: 
         type: integer
