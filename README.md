@@ -1,21 +1,21 @@
 # tool_template_jupyter
 
-[![Docker Image CI](https://github.com/VForWaTer/tool_template_jupyter/actions/workflows/docker-image.yml/badge.svg)](https://github.com/VForWaTer/tool_template_jupyter/actions/workflows/docker-image.yml)
+[![Docker Image CI](https://github.com/tool-spec/tool_template_jupyter/actions/workflows/docker-image.yml/badge.svg)](https://github.com/tool-spec/tool_template_jupyter/actions/workflows/docker-image.yml)
 [![DOI](https://zenodo.org/badge/887771303.svg)](https://doi.org/10.5281/zenodo.14166903)
 
-This is the template for a generic containerized Jupyter notebook tool following the [Tool Specification](https://vforwater.github.io/tool-specs/) for reusable research software using Docker.
+This is the template for a generic containerized Jupyter notebook tool following the [Tool Specification](https://tool-spec.github.io/tool-specs/) for reusable research software using Docker.
 
 This template can be used to generate new Github repositories from it.
 
 
 ## How generic?
 
-Tools using this template can be run by the [toolbox-runner](https://github.com/hydrocode-de/tool-runner). 
+Tools using this template can be run by the [toolbox-runner](https://github.com/tool-spec/tool-runner). 
 That is only convenience, the tools implemented using this template are independent of any framework.
 
 The main idea is to implement a common file structure inside container to load inputs and outputs of the 
-tool. The template shares this structures with the[Python template](https://github.com/vforwater/tool_template_python), [R template](https://github.com/vforwater/tool_template_r),
-[NodeJS template](https://github.com/vforwater/tool_template_node) and [Octave template](https://github.com/vforwater/tool_template_octave), 
+tool. The template shares this structures with the [Python template](https://github.com/tool-spec/tool_template_python), [R template](https://github.com/tool-spec/tool_template_r),
+[NodeJS template](https://github.com/tool-spec/tool_template_node) and [Octave template](https://github.com/tool-spec/tool_template_octave), 
 but can be mimiced in any container.
 
 Each container needs at least the following structure:
@@ -65,7 +65,7 @@ docker run --rm -it -v /path/to/local/in:/in -v /path/to/local/out:/out -e TOOL_
 
 Then, the output will be in your local out and based on your local input folder. Stdout and Stderr are also connected to the host.
 
-With the [toolbox runner](https://github.com/hydrocode-de/tool-runner), this is simplyfied:
+With the [toolbox runner](https://github.com/tool-spec/tool-runner), this is simplyfied:
 
 ```python
 from toolbox_runner import list_tools
