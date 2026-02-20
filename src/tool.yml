@@ -2,6 +2,7 @@ tools:
   foobar:
     title: Foo Bar
     description: A dummy tool to exemplify the YAML file
+    command: "python run.py"
     # version: 0.1    # remove this line - add the version via Git tags like v0.1.0
     parameters:
       foo_int: 

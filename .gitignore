@@ -130,3 +130,6 @@ dmypy.json
 
 # don't save results
 out/
+
+# gotap-generated bindings (built during Docker build)
+src/parameters.py

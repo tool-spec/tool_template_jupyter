@@ -1,17 +1,17 @@
+# Build gotap from source, then discard Go
+FROM golang:1.25-alpine AS gotap-builder
+RUN apk add --no-cache git
+ARG GOTAP_VERSION=main
+RUN git clone --depth 1 --branch ${GOTAP_VERSION} https://github.com/tool-spec/gotap.git /gotap && \
+    cd /gotap && go build -o gotap .
+
 # Pull any base image that includes python3
 FROM python:3.12
+COPY --from=gotap-builder /gotap/gotap /usr/local/bin/gotap
+RUN chmod +x /usr/local/bin/gotap
 
-# install the toolbox runner tools
-# for jupyter notebooks we need jupyter itself and papermill to execute them
-RUN pip install \
-    "json2args[data]>=0.7.0" \
-    jupyter==1.1.1 \ 
-    papermill==2.6.0
-
-# if you do not need data-preloading as your tool does that on its own
-# you can use this instread of the line above to use a json2args version
-# with less dependencies
-# RUN pip install json2args>=0.7.0
+# install jupyter and papermill to execute notebooks
+RUN pip install jupyter==1.1.1 papermill==2.6.0 numpy pandas
 
 # Do anything you need to install tool dependencies here
 RUN echo "Replace this line with a tool"
@@ -23,13 +23,13 @@ RUN mkdir /out
 RUN mkdir /src
 COPY ./src /src
 
+WORKDIR /src
+
+# Generate parameter bindings from tool.yml at build time
+RUN gotap generate --spec-file=tool.yml --target=python --output=parameters.py
+
 # copy the citation file - looks funny to make COPY not fail if the file is not there
 COPY ./CITATION.cf[f] /src/CITATION.cff
 
 WORKDIR /src
-
-# Use this for the finished too
-CMD ["python", "run.py"]
-
-# use this command for development
-#CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
+CMD ["gotap", "run", "foobar", "--input-file", "/in/input.json"]
