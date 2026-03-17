@@ -4,13 +4,16 @@ services:
     volumes:
       - ./in:/in
       - ./out:/out
-      - ./src:/src
-    # for development bind to juyper
+    environment:
+      TOOL_RUN: foobar
+    # for local notebook development, bind ./src and rebuild so
+    # gotap can regenerate parameters.py from the current tool.yml
+    #volumes:
+    #  - ./in:/in
+    #  - ./out:/out
+    #  - ./src:/src
     #ports:
     #  - 8888:8888
     # command: ["jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
-    # production
-    environment:
-      TOOL_RUN: foobar
-    command: ["python",  "run.py"]
-    
+    # advanced debug path
+    #command: ["python", "run.py"]
